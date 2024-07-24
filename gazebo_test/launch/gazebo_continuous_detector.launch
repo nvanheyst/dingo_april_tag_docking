@@ -1,0 +1,33 @@
+<launch>
+    <!-- Start the AprilTag detection node -->
+    <node name="tag_detector" pkg="apriltag_ros" type="apriltag_ros_continuous_node" output="screen">
+        <param name="image_transport" value="raw" />
+        <param name="camera_name" value="realsense" />
+        <param name="camera_frame" value="camera_frame" />
+        <param name="tag_family" value="tag36h11" />
+        <param name="tag_size" value="0.5" /> <!-- Tag size is 1 meter -->
+        <param name="max_hamming" value="0" />
+
+         <!-- Parameters for AprilTag detection -->
+        <rosparam param="standalone_tags">
+            [
+                {"id": 0, "size": 0.5}
+            ]
+        </rosparam>
+
+        <!-- Remap the input image topic -->
+        <remap from="image_rect" to="/realsense/color/image_raw" />
+
+        <!-- Remap the camera info topic -->
+        <remap from="camera_info" to="/realsense/color/camera_info" />
+    </node>
+
+    <!-- Start the pose estimation node -->
+    <node name="april_tag_pose_estimator" pkg="gazebo_test" type="gazebo_single_tag_pose_estimator.py" output="screen">
+        <!-- Remap the input image topic -->
+        <remap from="/camera/rgb/image_raw" to="/realsense/color/image_raw" />
+        
+        <!-- Remap the tag detections topic -->
+        <remap from="/tag_detections" to="/tag_detections" />
+    </node>
+</launch>
