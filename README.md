@@ -1,4 +1,5 @@
 # dingo_april_tag_docking
 ROS Noetic Open Source Package for Dingo-O Autodocking 
 
-![](https://github.com/dingo_april_tag_docking/gazebo_test/media/poc.gif)
+Initial Gazebo Test
+![](https://github.com/nvanheyst/dingo_april_tag_docking/blob/master/gazebo_test/media/poc.gif)
